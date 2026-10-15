@@ -89,6 +89,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the exact process. Do not add real cr
 
 We are developing a **teaching and research prototype**, not a commercial airline agent or a general-purpose system allowed to perform purchases. Broader websites and any externally consequential actions require approval and appropriate safeguards.
 
+## In-person team: detect_stage progress
+
+Development branch: `team2-detect-stage`. This tool is being built in small steps.
+
+**Step 1 completed:** `team_tools/detect_stage.py` provides `validate(argument)`.
+Only `{}` is accepted; a caller-supplied stage and malformed arguments are rejected.
+Run its eight offline checks with `python -m team_tests.test_detect_stage`.
+
+**Next steps:** implement visible-stage detection through `run(page, argument, context)`,
+then add loading-state checks, browser failure cases, and the manual demonstration.
+Browser-stage detection is not implemented in this first step.
+
 ## Instructor note on GitHub protection
 
 The course rule is that pull requests are reviewed before merge. Repository settings must separately enforce that rule: GitHub Settings > Branches / Rulesets should protect `main`, require pull requests, and (once configured) require the tests check to pass. A documented rule is not the same thing as an enforced GitHub setting.
