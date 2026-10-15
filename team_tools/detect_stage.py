@@ -1,7 +1,7 @@
 """Detect the one visible Agent Airways stage without changing the browser.
 
 The tool accepts an empty dictionary. The caller cannot provide its own stage.
-Loading-state observation will be added in the next increment.
+Results-stage observations also report whether the loading message is visible.
 """
 
 SITE_URL = "https://onyourmark.github.io/browser-agent-form/travel/"
@@ -43,4 +43,11 @@ def run(page, argument, context):
         return {"ok": False, "message": "More than one stage is visible.", "data": {}}
 
     stage = visible[0]
-    return {"ok": True, "message": "The " + stage + " screen is visible.", "data": {"stage": stage}}
+    loading = False
+    if stage == "results":
+        indicator = page.locator("#loadingFlights")
+        if indicator.count() != 1:
+            return {"ok": False, "message": "Expected exactly one results loading indicator.", "data": {}}
+        loading = indicator.is_visible()
+
+    return {"ok": True, "message": "The " + stage + " screen is visible.", "data": {"stage": stage, "loading": loading}}

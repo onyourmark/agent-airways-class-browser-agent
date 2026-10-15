@@ -22,7 +22,7 @@ def check_stage(stage, selector):
     # Read the real page separately; do not accept only the tool's own answer.
     assert page.locator(selector).is_visible()
     heading = page.locator(selector + " h2").inner_text()
-    assert result["ok"] is True and result["data"] == {"stage": stage}
+    assert result["ok"] is True and result["data"] == {"stage": stage, "loading": False}
     assert page.url == before_url and page.content() == before_html
     record(stage + " is visible; observation is read-only", result, {"selector": selector, "heading": heading, "url": page.url})
 

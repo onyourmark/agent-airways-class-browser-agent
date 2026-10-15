@@ -104,9 +104,16 @@ Run the real-browser checks with `python -m team_tests.test_detect_stage_browser
 They use the starter's visible Chromium setup; install Chromium first with
 `python -m playwright install chromium`. Fresh evidence is saved in `artifacts/`.
 
-**Next steps:** add the `loading` observation and its tests, then complete the
-manual student demonstration and remaining browser-error handling.
-The current success data contains `stage` only; loading detection is not implemented yet.
+**Step 3 completed:** successful observations now include both `stage` and `loading`.
+In `results`, `loading` reflects the visibility of `#loadingFlights`; other stages
+report `False`. A missing or duplicated results loading indicator is rejected.
+Run `python -m team_tests.test_detect_stage_loading` for four browser checks.
+The test controls the application's clock to inspect its actual loading message
+before and after the site's own timer renders flights. Missing/duplicate indicators
+are explicitly created test fixtures. New evidence is saved in `artifacts/`.
+The verified run is recorded in [Step 3 evidence](team_tests/evidence/loading-step3.json).
+
+**Next steps:** complete the manual student demonstration and remaining browser-error handling.
 
 ## Instructor note on GitHub protection
 

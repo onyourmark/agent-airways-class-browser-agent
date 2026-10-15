@@ -1,0 +1,66 @@
+{
+  "step": 3,
+  "result": "PASS",
+  "application_clock_controlled": true,
+  "cases": [
+    {
+      "case": "results loading=True",
+      "returned": {
+        "ok": true,
+        "message": "The results screen is visible.",
+        "data": {
+          "stage": "results",
+          "loading": true
+        }
+      },
+      "browser_evidence": {
+        "loading_indicator_visible": true,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#results",
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "results loading=False",
+      "returned": {
+        "ok": true,
+        "message": "The results screen is visible.",
+        "data": {
+          "stage": "results",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "loading_indicator_visible": false,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#results",
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "duplicate loading indicators rejected",
+      "returned": {
+        "ok": false,
+        "message": "Expected exactly one results loading indicator.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "indicator_count": 2
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "missing loading indicator rejected",
+      "returned": {
+        "ok": false,
+        "message": "Expected exactly one results loading indicator.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "indicator_count": 0,
+        "results_visible": true
+      },
+      "result": "PASS"
+    }
+  ]
+}
