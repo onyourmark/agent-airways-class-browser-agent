@@ -1,0 +1,115 @@
+{
+  "step": 2,
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "search is visible; observation is read-only",
+      "returned": {
+        "ok": true,
+        "message": "The search screen is visible.",
+        "data": {
+          "stage": "search"
+        }
+      },
+      "browser_evidence": {
+        "selector": "#searchStage",
+        "heading": "1. Search for a flight",
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#search"
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "search is visible; observation is read-only",
+      "returned": {
+        "ok": true,
+        "message": "The search screen is visible.",
+        "data": {
+          "stage": "search"
+        }
+      },
+      "browser_evidence": {
+        "selector": "#searchStage",
+        "heading": "1. Search for a flight",
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#review"
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "seat is visible; observation is read-only",
+      "returned": {
+        "ok": true,
+        "message": "The seat screen is visible.",
+        "data": {
+          "stage": "seat"
+        }
+      },
+      "browser_evidence": {
+        "selector": "#seatStage",
+        "heading": "3. Choose a seat",
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#seat"
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "two visible stages rejected",
+      "returned": {
+        "ok": false,
+        "message": "More than one stage is visible.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "search_visible": true,
+        "seat_visible": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "no visible stage rejected",
+      "returned": {
+        "ok": false,
+        "message": "No known stage is visible.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "visible_stage_count": 0
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "wrong site rejected",
+      "returned": {
+        "ok": false,
+        "message": "The page is not the approved Agent Airways site.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "url": "about:blank"
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "invalid argument rejected before inspecting a page",
+      "returned": {
+        "ok": false,
+        "message": "detect_stage accepts only an empty dictionary.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "page": null
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "missing page rejected",
+      "returned": {
+        "ok": false,
+        "message": "No open browser page was supplied.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "page": null
+      },
+      "result": "PASS"
+    }
+  ]
+}

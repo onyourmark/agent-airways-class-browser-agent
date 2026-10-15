@@ -97,9 +97,16 @@ Development branch: `team2-detect-stage`. This tool is being built in small step
 Only `{}` is accepted; a caller-supplied stage and malformed arguments are rejected.
 Run its eight offline checks with `python -m team_tests.test_detect_stage`.
 
-**Next steps:** implement visible-stage detection through `run(page, argument, context)`,
-then add loading-state checks, browser failure cases, and the manual demonstration.
-Browser-stage detection is not implemented in this first step.
+**Step 2 completed:** `run(page, argument, context)` reads the six stage sections and
+reports a stage only when exactly one is visible. It rejects invalid arguments,
+wrong sites, missing pages, duplicate stage elements, and unclear visibility.
+Run the real-browser checks with `python -m team_tests.test_detect_stage_browser`.
+They use the starter's visible Chromium setup; install Chromium first with
+`python -m playwright install chromium`. Fresh evidence is saved in `artifacts/`.
+
+**Next steps:** add the `loading` observation and its tests, then complete the
+manual student demonstration and remaining browser-error handling.
+The current success data contains `stage` only; loading detection is not implemented yet.
 
 ## Instructor note on GitHub protection
 
