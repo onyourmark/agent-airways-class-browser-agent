@@ -1,0 +1,15 @@
+python team_tools/list_seats.py
+>> 
+
+--- FAILURE TEST: before reaching the seat map ---
+Result: {'ready': False, 'reason': 'The seat selection stage is not visible.'}
+PASS: tool reported not-ready instead of inventing seats.
+
+Now use the browser window to search for a flight,
+choose one, and continue until the seat map is visible.
+Press Enter when you can see the seat map...
+
+--- SUCCESS TEST: seat map visible ---
+Result: {'ready': True, 'seats': [{'seat': '1A', 'status': 'available'}, {'seat': '1B', 'status': 'unavailable'}, {'seat': '1C', 'status': 'available'}, {'seat': '1D', 'status': 'available'}, {'seat': '1E', 'status': 'available'}, {'seat': '1F', 'status': 'available'}, {'seat': '2A', 'status': 'available'}, {'seat': '2B', 'status': 'available'}, {'seat': '2C', 'status': 'unavailable'}, {'seat': '2D', 'status': 'available'}, {'seat': '2E', 'status': 'available'}, {'seat': '2F', 'status': 'available'}, {'seat': '3A', 'status': 'unavailable'}, {'seat': '3B', 'status': 'available'}, {'seat': '3C', 'status': 'available'}, {'seat': '3D', 'status': 'available'}, {'seat': '3E', 'status': 'available'}, {'seat': '3F', 'status': 'available'}, {'seat': '4A', 'status': 'available'}, {'seat': '4B', 'status': 'available'}, {'seat': '4C', 'status': 'available'}, {'seat': '4D', 'status': 'available'}, {'seat': '4E', 'status': 'available'}, {'seat': '4F', 'status': 'unavailable'}, {'seat': '5A', 'status': 'available'}, {'seat': '5B', 'status': 'available'}, {'seat': '5C', 'status': 'available'}, {'seat': '5D', 'status': 'unavailable'}, {'seat': '5E', 'status': 'available'}, {'seat': '5F', 'status': 'available'}]}
+PASS: 1A is choosable and 1B is unavailable, as on the demo site.
+Press Enter to close the browser...

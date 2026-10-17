@@ -8,24 +8,10 @@ import browser_tools
 
 
 def select_dropdown(field_id, choice):
-    """Find a dropdown by its ID, select a choice, and return its actual value.
-
-    Example: select_dropdown("fromAirport", "DCA")
-
-    You must write the code inside this function.
-    You will need three simple Python statements.
-    """
-
-    # 1. Find the dropdown.
-    #    Hint: browser_tools.page.locator("#" + field_id)
-
-    # 2. Select the requested choice.
-    #    Hint: menu.select_option(choice)
-
-    # 3. Read and return the value the browser actually selected.
-    #    Hint: menu.input_value()
-
-    raise NotImplementedError("Write select_dropdown() here, then remove this line.")
+    """Find a dropdown by its ID, select a choice, and return its actual value."""
+    menu = browser_tools.page.locator("#" + field_id)
+    menu.select_option(choice)
+    return menu.input_value()
 
 
 def main():
@@ -40,14 +26,14 @@ def main():
         # These are real IDs and option values on the practice website.
         from_result = select_dropdown("fromAirport", "DCA")
         to_result = select_dropdown("toAirport", "BOS")
-        passengers_result = select_dropdown("passengers", "1")
+        passengers_result = select_dropdown("passengers", "3")
 
         # These checks read the function's returned browser values.
         print("From:", from_result)
         print("To:", to_result)
         print("Passengers:", passengers_result)
 
-        if from_result == "DCA" and to_result == "BOS" and passengers_result == "1":
+        if from_result == "DCA" and to_result == "BOS" and passengers_result == "3":
             print("SUCCESS: The three dropdowns contain the requested values.")
         else:
             print("NOT YET CORRECT: Look at the dropdown values and try again.")
