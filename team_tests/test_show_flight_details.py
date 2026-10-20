@@ -3,7 +3,8 @@
 Demonstrates:
 1. Normal success case: Open details for AA101, extract facts, verify dialog closes.
 2. Failure test: Request non-existent flight AA999, verify refusal and unchanged page state.
-3. Independent browser checks using Playwright selectors.
+3. Edge case: Request partial ID AA2 (part of AA205), verify refusal and that no dialog opened.
+4. Independent browser checks using Playwright selectors.
 """
 
 import sys
@@ -107,8 +108,45 @@ def run_tests():
             print("INDEPENDENT CHECK: #flightDialog remains closed:", not dialog_visible_fail)
             print("PASS: Test 2 safely rejected non-existent flight ID AA999.")
 
+            # -------------------------------------------------------------
+            # TEST 3: EDGE CASE (AA2 - only part of the real ID AA205)
+            # -------------------------------------------------------------
+            print("\n--- TEST 3: EDGE CASE (Partial Flight ID: AA2) ---")
+            arg_partial = {"flight_id": "AA2"}
+
+            # Remember the dialog title before the call. Opening any flight's
+            # details changes it (for example to "AA205 details"), and the new
+            # title stays on the page even after the dialog closes.
+            title_before = page.locator("#dialogTitle").text_content()
+
+            # Step 1: Validate argument (format is valid, but no card has this exact ID)
+            val_ok, val_note = show_flight_details.validate(arg_partial)
+            print("Validation Check:", val_ok, "-", val_note)
+
+            # Step 2: Execute the tool
+            result_partial = show_flight_details.run(page, arg_partial, context={})
+            print("Tool Return OK:", result_partial["ok"])
+            print("Tool Return Message:", result_partial["message"])
+
+            # Step 3: Independent browser checks
+            # 1. Tool must report ok == False
+            assert result_partial["ok"] is False, "Tool should refuse the partial ID AA2"
+            # 2. No flight's details were opened, not even briefly
+            title_after = page.locator("#dialogTitle").text_content()
+            assert title_after == title_before, "Independent check: no details dialog should have opened"
+            # 3. Dialog is closed and the page is still on the results stage
+            dialog_visible_partial = page.locator("#flightDialog").is_visible()
+            assert not dialog_visible_partial, "Independent check: #flightDialog must remain closed"
+            results_visible = page.locator("#resultsStage").is_visible()
+            seat_visible = page.locator("#seatStage").is_visible()
+            assert results_visible and not seat_visible, "Independent check: page must stay on results"
+            print("INDEPENDENT CHECK: dialog title unchanged ('" + title_after + "'):", title_after == title_before)
+            print("INDEPENDENT CHECK: #flightDialog remains closed:", not dialog_visible_partial)
+            print("INDEPENDENT CHECK: still on results, no flight chosen:", results_visible and not seat_visible)
+            print("PASS: Test 3 refused partial flight ID AA2.")
+
             print("\n" + "=" * 65)
-            print("ALL TESTS PASSED SUCCESSFULLY (2/2)")
+            print("ALL TESTS PASSED SUCCESSFULLY (3/3)")
             print("=" * 65)
 
         finally:

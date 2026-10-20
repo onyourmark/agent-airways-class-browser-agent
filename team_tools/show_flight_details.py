@@ -30,6 +30,11 @@ def validate(argument):
     if flight_id.strip() == "":
         return False, "The 'flight_id' argument cannot be empty."
 
+    # flight_id may contain only letters and digits, such as AA101.
+    # This also keeps quotes and spaces out of the page selector used in run().
+    if not flight_id.strip().isalnum():
+        return False, "The 'flight_id' argument must contain only letters and digits."
+
     return True, "Validation succeeded."
 
 
@@ -47,21 +52,9 @@ def run(page, argument, context):
     flight_id = argument["flight_id"].strip()
 
     try:
-        # Locate flight cards containing the requested flight_id
-        cards = page.locator(".flight-card").filter(has_text=flight_id)
-
-        if cards.count() == 0:
-            cards = page.locator("[data-flight-id='" + flight_id + "']")
-
-        if cards.count() == 0:
-            cards = page.locator(".card").filter(has_text=flight_id)
-
-        if cards.count() == 0:
-            cards = page.locator(
-                "xpath=//div[(contains(@class, 'flight') or contains(@class, 'card')) and contains(., '"
-                + flight_id
-                + "')]"
-            )
+        # Locate the flight card whose data-flight-id attribute is exactly flight_id.
+        # An exact match means a partial ID such as "AA2" cannot pick AA205.
+        cards = page.locator(".flight-card[data-flight-id='" + flight_id + "']")
 
         # Check before acting: The flight ID must identify exactly ONE visible card
         matching_count = cards.count()
