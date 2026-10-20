@@ -1,7 +1,8 @@
 """Team 07 Test Suite for show_flight_details.
 
 Demonstrates:
-1. Normal success case: Open details for AA101, extract facts, verify dialog closes.
+1. Normal success case: Open details for AA101, compare extracted facts against
+   actual page values, verify dialog closes, and confirm flight is not selected.
 2. Failure test: Request non-existent flight AA999, verify refusal and unchanged page state.
 3. Edge case: Request partial ID AA2 (part of AA205), verify refusal and that no dialog opened.
 4. Independent browser checks using Playwright selectors.
@@ -72,16 +73,34 @@ def run_tests():
             # Step 3: Independent verification in the real browser
             # 1. Returned ok must be True
             assert result_success["ok"] is True, "Tool should report ok == True"
-            # 2. Dialog title must not be empty
-            assert result_success["data"]["dialog_title"] != "", "Dialog title should be captured"
-            # 3. Details body must not be empty
-            assert result_success["data"]["details"] != "", "Dialog details body should be captured"
-            # 4. Dialog must be closed in actual DOM
+
+            # 2. Compare returned details with actual page DOM elements and card text
+            actual_dialog_title = page.locator("#dialogTitle").text_content().strip()
+            actual_dialog_body = page.locator("#dialogBody").text_content().strip()
+            card_text = page.locator(".flight-card[data-flight-id='AA101']").inner_text()
+
+            assert result_success["data"]["dialog_title"] == actual_dialog_title, "Returned title must match actual #dialogTitle"
+            assert result_success["data"]["dialog_title"] == "AA101 details", "Dialog title must be 'AA101 details'"
+            assert result_success["data"]["details"] == actual_dialog_body, "Returned details must match actual #dialogBody"
+            assert result_success["data"]["route"] == "DCA to BOS", "Route must match 'DCA to BOS'"
+            assert result_success["data"]["time"] == "8:10 AM to 9:35 AM", "Time must match '8:10 AM to 9:35 AM'"
+            assert result_success["data"]["stops"] == "Nonstop", "Stops must match 'Nonstop'"
+            assert result_success["data"]["price"] == "$129 per passenger.", "Price must match '$129 per passenger.'"
+            assert "AA101" in card_text and "$129" in card_text, "Extracted info must match visible AA101 flight card"
+
+            # 3. Dialog must be closed in actual DOM
             dialog_visible = page.locator("#flightDialog").is_visible()
             assert not dialog_visible, "Independent check: #flightDialog must be hidden"
-            # 5. Flight should NOT have been selected (results stage should still be active)
+
+            # 4. Flight should NOT have been selected (results stage must remain active)
+            results_visible = page.locator("#resultsStage").is_visible()
+            seat_visible = page.locator("#seatStage").is_visible()
+            assert results_visible and not seat_visible, "Independent check: page must stay on results without selecting flight"
+
+            print("INDEPENDENT CHECK: #dialogTitle & #dialogBody match actual page values: True")
             print("INDEPENDENT CHECK: #flightDialog is hidden:", not dialog_visible)
-            print("PASS: Test 1 succeeded with verified dialog closure and data extraction.")
+            print("INDEPENDENT CHECK: still on results, no flight chosen:", results_visible and not seat_visible)
+            print("PASS: Test 1 succeeded with verified dialog closure, exact data match, and unchanged stage.")
 
             # -------------------------------------------------------------
             # TEST 2: FAILURE CASE (AA999 - Non-existent flight)
@@ -105,7 +124,11 @@ def run_tests():
             dialog_visible_fail = page.locator("#flightDialog").is_visible()
             assert not dialog_visible_fail, "Independent check: #flightDialog must remain closed"
             # 3. Page remains on flight results stage without unintended mutations
+            results_visible_fail = page.locator("#resultsStage").is_visible()
+            seat_visible_fail = page.locator("#seatStage").is_visible()
+            assert results_visible_fail and not seat_visible_fail, "Independent check: page must stay on results"
             print("INDEPENDENT CHECK: #flightDialog remains closed:", not dialog_visible_fail)
+            print("INDEPENDENT CHECK: still on results, no flight chosen:", results_visible_fail and not seat_visible_fail)
             print("PASS: Test 2 safely rejected non-existent flight ID AA999.")
 
             # -------------------------------------------------------------
