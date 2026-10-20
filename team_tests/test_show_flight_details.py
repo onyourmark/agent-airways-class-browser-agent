@@ -36,8 +36,9 @@ def navigate_to_results(page):
     if search_btn.count() > 0:
         search_btn.first.click()
 
-    # Wait for flight cards to load
-    page.wait_for_timeout(1000)
+    # Wait until the flight cards actually appear. The site adds them about
+    # 1.2 seconds after Search, so a fixed 1-second pause can be too short.
+    page.locator(".flight-card").first.wait_for(state="visible", timeout=5000)
 
 
 def run_tests():
