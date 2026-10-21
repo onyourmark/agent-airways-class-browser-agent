@@ -1,6 +1,6 @@
 """Team 13 tool: read_review
 
-Read the reservation summary on the Review screen, without changing it.
+Read the reservation summary and verify the Review confirmation control.
 Team members: Qing Mi, Wan Lin Yang
 """
 
@@ -20,7 +20,6 @@ REQUIRED_FIELDS = [
     "Priority boarding",
     "Mock total",
 ]
-
 
 def validate(argument):
     """Check the model's argument before touching the browser.
@@ -61,7 +60,70 @@ def run(page, argument, context):
             "data": {"url": page.url},
         }
 
-    
+    # Verify the confirmation control's disabled/enabled behavior, then leave it unchecked.
+    confirm_details = page.locator(
+        "label.check-row.important-check input#confirmDetails"
+    )
+    confirm_button = page.locator("#confirmReservation")
+    review_message = page.locator("#reviewMessage")
+    if (
+        confirm_details.count() != 1
+        or confirm_button.count() != 1
+        or review_message.count() != 1
+    ):
+        return {
+            "ok": False,
+            "message": "review confirmation checkbox, button, or message is missing",
+            "data": {"url": page.url},
+        }
+
+    confirm_details.uncheck()
+    if (
+        confirm_details.is_checked()
+        or confirm_button.is_enabled()
+        or review_message.inner_text().strip()
+    ):
+        return {
+            "ok": False,
+            "message": "unchecked confirmation must disable the button and clear the review message",
+            "data": {"url": page.url},
+        }
+
+    try:
+        confirm_details.check()
+        message_text = review_message.inner_text().strip()
+        if (
+            not confirm_details.is_checked()
+            or not confirm_button.is_enabled()
+            or not review_message.is_visible()
+            or message_text != "Details confirmed."
+        ):
+            return {
+                "ok": False,
+                "message": "checked confirmation must enable the button and show 'Details confirmed.'",
+                "data": {"url": page.url},
+            }
+        confirm_button.click(trial=True)
+    except Exception as error:
+        return {
+            "ok": False,
+            "message": "confirm reservation button is not clickable when enabled: " + str(error),
+            "data": {"url": page.url},
+        }
+    finally:
+        confirm_details.uncheck()
+
+    if (
+        confirm_details.is_checked()
+        or confirm_button.is_enabled()
+        or review_message.inner_text().strip()
+    ):
+        return {
+            "ok": False,
+            "message": "could not restore the unchecked confirmation state and clear the review message",
+            "data": {"url": page.url},
+        }
+
     # Read every label (dt) and value (dd) inside the review card.
     labels = page.locator("#reviewCard dt")
     values = page.locator("#reviewCard dd")
@@ -100,6 +162,17 @@ def run(page, argument, context):
     # Success: everything below was read from the real browser.
     return {
         "ok": True,
-        "message": "read " + str(len(review)) + " review fields from the browser",
-        "data": {"review": review, "url": page.url},
+        "message": "read " + str(len(review)) + " review fields and verified confirmation controls",
+        "data": {
+            "review": review,
+            "url": page.url,
+            "confirmation": {
+                "checkbox_exists": True,
+                "disabled_when_unchecked": True,
+                "enabled_and_clickable_when_checked": True,
+                "message_shown_when_checked": True,
+                "message_cleared_when_unchecked": True,
+                "left_unchecked": True,
+            },
+        },
     }

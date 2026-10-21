@@ -24,6 +24,11 @@ from team_tools import read_review
 EXPECTED_NAME = "Alex Student"
 EXPECTED_EMAIL = "alex@example.com"
 EXPECTED_SEAT = "1A"
+EXPECTED_ROUTE = "BOS → JFK"
+EXPECTED_FLIGHT = "AA101"
+EXPECTED_DATE = "2026-10-27"
+EXPECTED_BAG = "Yes"
+EXPECTED_PRIORITY = "No"
 
 
 def test_not_ready():
@@ -61,15 +66,14 @@ def test_success():
 
     # Setup (not the graded tool): a person moves the browser by hand.
     print("In the Playwright browser window, do these steps by hand:")
-    print("  1. Choose From and To, then click Search flights")
-    print("  2. Choose any flight")
+    print("  1. Choose From BOS and To JFK, set date " + EXPECTED_DATE + ", then click Search flights")
+    print("  2. Choose flight " + EXPECTED_FLIGHT)
     print("  3. Choose seat " + EXPECTED_SEAT + ", then click Continue")
     print("  4. Full name: " + EXPECTED_NAME)
     print("  5. Email: " + EXPECTED_EMAIL)
-    print("  6. Click Continue to review")
-    input("When the Review screen is showing, press Enter here... ")
-
-    # Check the argument, then call the tool.
+    print("  6. Select Checked bag; leave Priority boarding unselected")
+    print("  7. Click Continue to review")
+    input("When the Review screen is showing, press Enter here... ")    # Check the argument, then call the tool.
     argument = {}
     valid, note = read_review.validate(argument)
     print("validate({}) ->", valid, note)
@@ -91,9 +95,14 @@ def test_success():
 
     # Compare each expected value with the tool's result AND the browser text.
     expected_values = {
+        "Route": EXPECTED_ROUTE,
+        "Date": EXPECTED_DATE,
+        "Flight": EXPECTED_FLIGHT,
         "Passenger": EXPECTED_NAME,
         "Email": EXPECTED_EMAIL,
         "Seat": EXPECTED_SEAT,
+        "Checked bag": EXPECTED_BAG,
+        "Priority boarding": EXPECTED_PRIORITY,
     }
     passed = True
     for field in expected_values:
@@ -106,6 +115,7 @@ def test_success():
             print("FAIL:", field, "returned", repr(returned), "expected", repr(expected))
             passed = False
     print()
+
     return passed
 
 
