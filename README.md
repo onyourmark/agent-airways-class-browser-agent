@@ -122,6 +122,17 @@ Fresh evidence is saved to `artifacts/browser-errors-step4.json`; the verified r
 is recorded in [Step 4 evidence](team_tests/evidence/browser-errors-step4.json).
 The tool reports browser errors but does not reopen a browser or retry a read.
 
+**Step 5 completed:** `python -m team_tests.test_detect_stage_later_stages` checks
+`passenger`, `review`, and `confirmation` after reaching each through the practice
+site's normal controls with synthetic passenger data. It independently inspects
+the visible section and heading, checks `loading=False`, and verifies that the
+tool preserves the URL, DOM, live input values, and checkbox states. A fourth check
+keeps the review screen visible while setting the URL hash to `#confirmation`;
+the tool must still report `review`. Fresh evidence is saved to
+`artifacts/later-stages-step5.json`; see the [Step 5 evidence](team_tests/evidence/later-stages-step5.json).
+This test completes a pretend reservation on the fixed practice site. It checks
+stage detection; it does not establish that all reservation details are correct.
+
 **Next steps:** complete the manual student demonstration and team participation notes.
 
 ## Instructor note on GitHub protection
