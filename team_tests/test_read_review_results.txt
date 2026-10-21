@@ -1,4 +1,4 @@
-Test output 
+Test run on macOS, Python 3.13.5, Playwright 1.63.0, run by Wan Lin Yang.
 
 === Test 1 (failure case): read_review on the search screen ===
 validate({}) -> True argument is valid
@@ -19,7 +19,7 @@ In the Playwright browser window, do these steps by hand:
 When the Review screen is showing, press Enter here... 
 validate({}) -> True argument is valid
 Call: read_review.run(page, {}, {})
-Returned observation: {'ok': True, 'message': 'read 9 review fields and verified confirmation controls', 'data': {'review': {'Route': 'BOS → JFK', 'Date': '2026-10-27', 'Flight': 'AA101', 'Seat': '1A', 'Passenger': 'Alex Student', 'Email': 'alex@example.com', 'Checked bag': 'Yes', 'Priority boarding': 'No', 'Mock total': '$164'}, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#review', 'confirmation': {'checkbox_exists': True, 'disabled_when_unchecked': True, 'enabled_and_clickable_when_checked': True, 'message_shown_when_checked': True, 'message_cleared_when_unchecked': True, 'left_unchecked': True}}}
+Returned observation: {'ok': True, 'message': 'read 9 review fields from the browser', 'data': {'review': {'Route': 'BOS → JFK', 'Date': '2026-10-27', 'Flight': 'AA101', 'Seat': '1A', 'Passenger': 'Alex Student', 'Email': 'alex@example.com', 'Checked bag': 'Yes', 'Priority boarding': 'No', 'Mock total': '$164'}, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#review'}}
 Browser evidence (#reviewCard text):
 Route
 BOS → JFK
