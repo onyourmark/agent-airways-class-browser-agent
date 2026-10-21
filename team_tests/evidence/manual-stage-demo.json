@@ -1,0 +1,154 @@
+{
+  "step": 6,
+  "interaction": "terminal prompts",
+  "completed": true,
+  "attempts": [
+    {
+      "expected_stage": "search",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The search screen is visible.",
+        "data": {
+          "stage": "search",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+        "visible_stage_count": 1,
+        "visible_stage_id": "searchStage",
+        "heading": "1. Search for a flight",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "expected_stage": "results",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The search screen is visible.",
+        "data": {
+          "stage": "search",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+        "visible_stage_count": 1,
+        "visible_stage_id": "searchStage",
+        "heading": "1. Search for a flight",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": false
+    },
+    {
+      "expected_stage": "results",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The results screen is visible.",
+        "data": {
+          "stage": "results",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#results",
+        "visible_stage_count": 1,
+        "visible_stage_id": "resultsStage",
+        "heading": "2. Choose a flight",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "expected_stage": "seat",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The seat screen is visible.",
+        "data": {
+          "stage": "seat",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#seat",
+        "visible_stage_count": 1,
+        "visible_stage_id": "seatStage",
+        "heading": "3. Choose a seat",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "expected_stage": "passenger",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The passenger screen is visible.",
+        "data": {
+          "stage": "passenger",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#passenger",
+        "visible_stage_count": 1,
+        "visible_stage_id": "passengerStage",
+        "heading": "4. Passenger information",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "expected_stage": "review",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The review screen is visible.",
+        "data": {
+          "stage": "review",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#review",
+        "visible_stage_count": 1,
+        "visible_stage_id": "reviewStage",
+        "heading": "5. Review the reservation",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "expected_stage": "confirmation",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The confirmation screen is visible.",
+        "data": {
+          "stage": "confirmation",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#confirmation",
+        "visible_stage_count": 1,
+        "visible_stage_id": "confirmationStage",
+        "heading": "RESERVATION CONFIRMED",
+        "loading_indicator_visible": false,
+        "url_and_html_unchanged": true
+      },
+      "passed": true
+    }
+  ]
+}

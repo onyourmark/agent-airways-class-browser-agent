@@ -103,6 +103,8 @@ wrong sites, missing pages, duplicate stage elements, and unclear visibility.
 Run the real-browser checks with `python -m team_tests.test_detect_stage_browser`.
 They use the starter's visible Chromium setup; install Chromium first with
 `python -m playwright install chromium`. Fresh evidence is saved in `artifacts/`.
+The [Step 2 evidence](team_tests/evidence/stage-detection-step2.json) records all
+eight checks with the current response format, including `loading` on success.
 
 **Step 3 completed:** successful observations now include both `stage` and `loading`.
 In `results`, `loading` reflects the visibility of `#loadingFlights`; other stages
@@ -133,7 +135,7 @@ the tool must still report `review`. Fresh evidence is saved to
 This test completes a pretend reservation on the fixed practice site. It checks
 stage detection; it does not establish that all reservation details are correct.
 
-**Step 6 prepared:** run `python -m team_tests.demo_detect_stage` for a guided
+**Step 6 completed:** run `python -m team_tests.demo_detect_stage` for a guided
 manual demonstration in the Playwright-opened Chromium window. Navigate each
 stage yourself, then press Enter in the terminal for an independent check.
 Incorrect stages can be retried; `q` stops early. The script saves all attempts
@@ -142,10 +144,17 @@ See the [manual demonstration instructions](team_tests/MANUAL_DETECT_STAGE.md)
 for installation, the six checkpoints, recovery, and saved-report details.
 Run `python -m team_tests.test_detect_stage_demo` for automated verification of
 the demonstration script. Its [smoke-test evidence](team_tests/evidence/manual-demo-smoke-step6.json)
-records scripted checks, not student participation.
+records automated checks of the demonstration script.
 
-**Next steps:** students run the manual demonstration and add their actual
-participation notes to the final pull request.
+The [manual test evidence](team_tests/evidence/manual-stage-demo.json) records
+all six stages passing and `completed: true`. It retains one deliberate failed
+`results` checkpoint while `search` was still visible, followed by a successful
+retry. All seven attempts include independent browser observations and unchanged
+URL and HTML. Loading was `False` throughout this manual run; Step 3 covers the
+short-lived `True` state separately.
+
+**Next steps:** submit the tool, tests, evidence, and team participation notes
+in one pull request for TA review.
 
 ## Instructor note on GitHub protection
 
