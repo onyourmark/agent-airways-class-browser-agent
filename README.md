@@ -133,7 +133,19 @@ the tool must still report `review`. Fresh evidence is saved to
 This test completes a pretend reservation on the fixed practice site. It checks
 stage detection; it does not establish that all reservation details are correct.
 
-**Next steps:** complete the manual student demonstration and team participation notes.
+**Step 6 prepared:** run `python -m team_tests.demo_detect_stage` for a guided
+manual demonstration in the Playwright-opened Chromium window. Navigate each
+stage yourself, then press Enter in the terminal for an independent check.
+Incorrect stages can be retried; `q` stops early. The script saves all attempts
+and a completion flag to `artifacts/manual-stage-demo.json`.
+See the [manual demonstration instructions](team_tests/MANUAL_DETECT_STAGE.md)
+for installation, the six checkpoints, recovery, and saved-report details.
+Run `python -m team_tests.test_detect_stage_demo` for automated verification of
+the demonstration script. Its [smoke-test evidence](team_tests/evidence/manual-demo-smoke-step6.json)
+records scripted checks, not student participation.
+
+**Next steps:** students run the manual demonstration and add their actual
+participation notes to the final pull request.
 
 ## Instructor note on GitHub protection
 
