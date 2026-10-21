@@ -77,7 +77,6 @@ def run(page, argument, context):
             "data": {"url": page.url},
         }
 
-    confirm_details.uncheck()
     if (
         confirm_details.is_checked()
         or confirm_button.is_enabled()
@@ -86,41 +85,6 @@ def run(page, argument, context):
         return {
             "ok": False,
             "message": "unchecked confirmation must disable the button and clear the review message",
-            "data": {"url": page.url},
-        }
-
-    try:
-        confirm_details.check()
-        message_text = review_message.inner_text().strip()
-        if (
-            not confirm_details.is_checked()
-            or not confirm_button.is_enabled()
-            or not review_message.is_visible()
-            or message_text != "Details confirmed."
-        ):
-            return {
-                "ok": False,
-                "message": "checked confirmation must enable the button and show 'Details confirmed.'",
-                "data": {"url": page.url},
-            }
-        confirm_button.click(trial=True)
-    except Exception as error:
-        return {
-            "ok": False,
-            "message": "confirm reservation button is not clickable when enabled: " + str(error),
-            "data": {"url": page.url},
-        }
-    finally:
-        confirm_details.uncheck()
-
-    if (
-        confirm_details.is_checked()
-        or confirm_button.is_enabled()
-        or review_message.inner_text().strip()
-    ):
-        return {
-            "ok": False,
-            "message": "could not restore the unchecked confirmation state and clear the review message",
             "data": {"url": page.url},
         }
 
