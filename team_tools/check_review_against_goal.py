@@ -51,9 +51,13 @@ def confirm_review_stage(page):
         return False, f"Browser is not on the review stage. Expected URL: {expected_url}, but got: {actual_url}"
 
     review_stage = page.locator("#reviewStage")
+    review_card = page.locator("#reviewCard")
 
     if not review_stage.is_visible():
         return False, "Review card is not visible on the page."
+
+    if not review_stage.is_visible():
+        return False, "Review stage is not visible on the page."
 
     return True, "Browser is on the review stage and review card is visible."
 
@@ -91,26 +95,26 @@ def read_review_card(page):
 
         review_info[label] = value
 
-        required_fields = [
-            "Route",
-            "Date",
-            "Flight",
-            "Seat",
-            "Passenger",
-            "Email",
-            "Checked Bag",
-            "Priority Boarding",
-            "Mock Total"
+    required_fields = [
+        "Route",
+        "Date",
+        "Flight",
+        "Seat",
+        "Passenger",
+        "Email",
+        "Checked bag",
+        "Priority boarding",
+        "Mock total"
         ]
 
-        for label in required_fields:
-            if label not in review_info:
-                return None, f"Missing required field '{label}' on the review card."
+    for label in required_fields:
+        if label not in review_info:
+            return None, f"Missing required field '{label}' on the review card."
 
-            if review_info[label] == "":
-                return None, f"Required field '{label}' is empty on the review card."
+        if review_info[label] == "":
+            return None, f"Required field '{label}' is empty on the review card."
 
-            return review_info, "Successfully read the review card."
+    return review_info, "Successfully read the review card."
     
 
 
