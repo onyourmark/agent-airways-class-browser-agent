@@ -11,7 +11,44 @@ displayed.
 
 #constants and field names
 #pieces of information from from goal (from, to, date, time, flight_id, seat, name)
+REQUIRED_GOAL_KEYS = ["from", "to", "date", "flight_id", "seat", "passenger", "email", 
+                      "checked_bag", "priority_boarding" ]
 
+
+
+# The model must not pass any values to this tool
+def validate(argument):
+    if not isinstance(argument, dict):
+        return False, "Argument must be a dictionary"
+    if len(argument) > 0:
+        return False, "This tool takes no argument. Send {} only."
+    return True, "Argument is an empty dictionary."
+
+
+
+
+#check context goal
+#helps with checking the context goal and making sure that the informatiion is valid and that the context goal is 
+# valid. It will return a failure result if the context goal is not valid or if the information is not valid.
+
+def check_goal(context):
+    # context must be a dictionary that hold goal as one of it's key-value pairs
+    if not isinstance(context, dict):
+        return False, "Context must be a dictionary"
+    if "goal" not in context:
+        return False, "Context does not have 'goal' entry"
+    goal = context["goal"]
+
+    # The goal itself must also be a dictionary
+    if not isinstance(goal, dict):
+        return False, "context['goal'] must be a dictionary"
+
+    # Check is all key-value pairs are present
+    for key in REQUIRED_GOAL_KEYS:
+        if key not in goal:
+            return False, "Goal is missing this required key: " + key
+
+    return True, "Goal has all required fields"
 
 
 #labels on the review card on the webpage
@@ -27,12 +64,6 @@ displayed.
 
 #build failure result
 #builds a failure return dictionary so its all in the same format
-
-
-
-#check context goal
-#helps with checking the context goal and making sure that the informatiion is valid and that the context goal is 
-# valid. It will return a failure result if the context goal is not valid or if the information is not valid.
 
 
 
