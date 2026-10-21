@@ -113,7 +113,16 @@ before and after the site's own timer renders flights. Missing/duplicate indicat
 are explicitly created test fixtures. New evidence is saved in `artifacts/`.
 The verified run is recorded in [Step 3 evidence](team_tests/evidence/loading-step3.json).
 
-**Next steps:** complete the manual student demonstration and remaining browser-error handling.
+**Step 4 completed:** Playwright read errors return `ok=False`, an explanation, and
+empty `data`, instead of raising an exception or returning a guessed stage.
+Run `python -m team_tests.test_detect_stage_errors` for a normal read-only search
+check, a closed-tab failure, and a stopped-driver failure. The last case independently
+confirms that reading the real page title fails before calling the tool.
+Fresh evidence is saved to `artifacts/browser-errors-step4.json`; the verified run
+is recorded in [Step 4 evidence](team_tests/evidence/browser-errors-step4.json).
+The tool reports browser errors but does not reopen a browser or retry a read.
+
+**Next steps:** complete the manual student demonstration and team participation notes.
 
 ## Instructor note on GitHub protection
 

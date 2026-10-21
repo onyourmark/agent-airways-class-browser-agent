@@ -4,6 +4,8 @@ The tool accepts an empty dictionary. The caller cannot provide its own stage.
 Results-stage observations also report whether the loading message is visible.
 """
 
+from playwright.sync_api import Error as PlaywrightError
+
 SITE_URL = "https://onyourmark.github.io/browser-agent-form/travel/"
 
 
@@ -28,26 +30,31 @@ def run(page, argument, context):
     if page.url.split("#", 1)[0] != SITE_URL:
         return {"ok": False, "message": "The page is not the approved Agent Airways site.", "data": {}}
 
-    stages = ["search", "results", "seat", "passenger", "review", "confirmation"]
-    visible = []
-    for stage in stages:
-        section = page.locator("#" + stage + "Stage")
-        if section.count() > 1:
-            return {"ok": False, "message": "Duplicate stage elements: " + stage, "data": {}}
-        if section.count() == 1 and section.is_visible():
-            visible.append(stage)
+    try:
+        stages = ["search", "results", "seat", "passenger", "review", "confirmation"]
+        visible = []
+        for stage in stages:
+            section = page.locator("#" + stage + "Stage")
+            if section.count() > 1:
+                return {"ok": False, "message": "Duplicate stage elements: " + stage, "data": {}}
+            if section.count() == 1 and section.is_visible():
+                visible.append(stage)
 
-    if len(visible) == 0:
-        return {"ok": False, "message": "No known stage is visible.", "data": {}}
-    if len(visible) > 1:
-        return {"ok": False, "message": "More than one stage is visible.", "data": {}}
+        if len(visible) == 0:
+            return {"ok": False, "message": "No known stage is visible.", "data": {}}
+        if len(visible) > 1:
+            return {"ok": False, "message": "More than one stage is visible.", "data": {}}
 
-    stage = visible[0]
-    loading = False
-    if stage == "results":
-        indicator = page.locator("#loadingFlights")
-        if indicator.count() != 1:
-            return {"ok": False, "message": "Expected exactly one results loading indicator.", "data": {}}
-        loading = indicator.is_visible()
+        stage = visible[0]
+        loading = False
+        if stage == "results":
+            indicator = page.locator("#loadingFlights")
+            if indicator.count() != 1:
+                return {"ok": False, "message": "Expected exactly one results loading indicator.", "data": {}}
+            loading = indicator.is_visible()
+    except PlaywrightError as error:
+        # A page can become unavailable after the is_closed() check above.
+        # Report the failed observation; do not guess or return partial data.
+        return {"ok": False, "message": "Could not inspect the browser page: " + str(error), "data": {}}
 
     return {"ok": True, "message": "The " + stage + " screen is visible.", "data": {"stage": stage, "loading": loading}}
