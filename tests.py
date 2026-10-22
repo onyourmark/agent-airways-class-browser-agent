@@ -6,6 +6,7 @@ laboratory will add live browser tests and end-to-end task cases.
 
 from browser_agent import parse_model_reply, validate_proposal, check_goal
 from browser_tools import SITE_URL
+from team_tools.test_compare_logic import test_review_checker_all
 
 
 def run_test(name, test_function):
@@ -85,4 +86,5 @@ if __name__ == "__main__":
     run_test("goal accepts exact browser evidence", test_good_goal_evidence)
     run_test("premature done rejected", test_premature_done_rejected)
     run_test("misleading title rejected", test_misleading_title_rejected)
-    print("All 9 offline checks passed.")
+    run_test("check_review_against_goal (16 checks)", test_review_checker_all)
+    print("All 10 offline checks passed.")
