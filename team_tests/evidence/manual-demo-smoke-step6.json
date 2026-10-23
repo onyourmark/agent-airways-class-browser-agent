@@ -1,0 +1,38 @@
+{
+  "step": 6,
+  "kind": "automated smoke test with scripted input",
+  "student_manual_demonstration": false,
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "six stages complete after a wrong-stage retry",
+      "result": "PASS",
+      "passed_stages": [
+        "search",
+        "results",
+        "seat",
+        "passenger",
+        "review",
+        "confirmation"
+      ],
+      "attempts": 7,
+      "retained_failed_attempts": 1
+    },
+    {
+      "case": "q stops without false completion",
+      "result": "PASS"
+    },
+    {
+      "case": "end-of-input preserves the completed search attempt",
+      "result": "PASS"
+    },
+    {
+      "case": "closed page records the read failure and allows q",
+      "result": "PASS"
+    },
+    {
+      "case": "startup and q save an incomplete report and exit 1",
+      "result": "PASS"
+    }
+  ]
+}

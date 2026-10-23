@@ -89,6 +89,73 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the exact process. Do not add real cr
 
 We are developing a **teaching and research prototype**, not a commercial airline agent or a general-purpose system allowed to perform purchases. Broader websites and any externally consequential actions require approval and appropriate safeguards.
 
+## In-person team: detect_stage progress
+
+Development branch: `team2-detect-stage`. This tool is being built in small steps.
+
+**Step 1 completed:** `team_tools/detect_stage.py` provides `validate(argument)`.
+Only `{}` is accepted; a caller-supplied stage and malformed arguments are rejected.
+Run its eight offline checks with `python -m team_tests.test_detect_stage`.
+
+**Step 2 completed:** `run(page, argument, context)` reads the six stage sections and
+reports a stage only when exactly one is visible. It rejects invalid arguments,
+wrong sites, missing pages, duplicate stage elements, and unclear visibility.
+Run the real-browser checks with `python -m team_tests.test_detect_stage_browser`.
+They use the starter's visible Chromium setup; install Chromium first with
+`python -m playwright install chromium`. Fresh evidence is saved in `artifacts/`.
+The [Step 2 evidence](team_tests/evidence/stage-detection-step2.json) records all
+eight checks with the current response format, including `loading` on success.
+
+**Step 3 completed:** successful observations now include both `stage` and `loading`.
+In `results`, `loading` reflects the visibility of `#loadingFlights`; other stages
+report `False`. A missing or duplicated results loading indicator is rejected.
+Run `python -m team_tests.test_detect_stage_loading` for four browser checks.
+The test controls the application's clock to inspect its actual loading message
+before and after the site's own timer renders flights. Missing/duplicate indicators
+are explicitly created test fixtures. New evidence is saved in `artifacts/`.
+The verified run is recorded in [Step 3 evidence](team_tests/evidence/loading-step3.json).
+
+**Step 4 completed:** Playwright read errors return `ok=False`, an explanation, and
+empty `data`, instead of raising an exception or returning a guessed stage.
+Run `python -m team_tests.test_detect_stage_errors` for a normal read-only search
+check, a closed-tab failure, and a stopped-driver failure. The last case independently
+confirms that reading the real page title fails before calling the tool.
+Fresh evidence is saved to `artifacts/browser-errors-step4.json`; the verified run
+is recorded in [Step 4 evidence](team_tests/evidence/browser-errors-step4.json).
+The tool reports browser errors but does not reopen a browser or retry a read.
+
+**Step 5 completed:** `python -m team_tests.test_detect_stage_later_stages` checks
+`passenger`, `review`, and `confirmation` after reaching each through the practice
+site's normal controls with synthetic passenger data. It independently inspects
+the visible section and heading, checks `loading=False`, and verifies that the
+tool preserves the URL, DOM, live input values, and checkbox states. A fourth check
+keeps the review screen visible while setting the URL hash to `#confirmation`;
+the tool must still report `review`. Fresh evidence is saved to
+`artifacts/later-stages-step5.json`; see the [Step 5 evidence](team_tests/evidence/later-stages-step5.json).
+This test completes a pretend reservation on the fixed practice site. It checks
+stage detection; it does not establish that all reservation details are correct.
+
+**Step 6 completed:** run `python -m team_tests.demo_detect_stage` for a guided
+manual demonstration in the Playwright-opened Chromium window. Navigate each
+stage yourself, then press Enter in the terminal for an independent check.
+Incorrect stages can be retried; `q` stops early. The script saves all attempts
+and a completion flag to `artifacts/manual-stage-demo.json`.
+See the [manual demonstration instructions](team_tests/MANUAL_DETECT_STAGE.md)
+for installation, the six checkpoints, recovery, and saved-report details.
+Run `python -m team_tests.test_detect_stage_demo` for automated verification of
+the demonstration script. Its [smoke-test evidence](team_tests/evidence/manual-demo-smoke-step6.json)
+records automated checks of the demonstration script.
+
+The [manual test evidence](team_tests/evidence/manual-stage-demo.json) records
+all six stages passing and `completed: true`. It retains one deliberate failed
+`results` checkpoint while `search` was still visible, followed by a successful
+retry. All seven attempts include independent browser observations and unchanged
+URL and HTML. Loading was `False` throughout this manual run; Step 3 covers the
+short-lived `True` state separately.
+
+**Next steps:** submit the tool, tests, evidence, and team participation notes
+in one pull request for TA review.
+
 ## Instructor note on GitHub protection
 
 The course rule is that pull requests are reviewed before merge. Repository settings must separately enforce that rule: GitHub Settings > Branches / Rulesets should protect `main`, require pull requests, and (once configured) require the tests check to pass. A documented rule is not the same thing as an enforced GitHub setting.

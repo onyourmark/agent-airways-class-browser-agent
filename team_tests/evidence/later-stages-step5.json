@@ -1,0 +1,138 @@
+{
+  "step": 5,
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "passenger stage is visible and unchanged",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The passenger screen is visible.",
+        "data": {
+          "stage": "passenger",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "visible_stage_count": 1,
+        "visible_stage_id": "passengerStage",
+        "heading": "4. Passenger information",
+        "visible_text": "4. Passenger information\nFull name\nEmail\nOptional extras\nAdd one checked bag\nAdd priority boarding\nContinue to review",
+        "loading_indicator_visible": false,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#passenger",
+        "form_values": {
+          "fromAirport": "DCA",
+          "toAirport": "BOS",
+          "departureDate": "2026-10-28",
+          "passengers": "1",
+          "passengerName": "Alex Student",
+          "passengerEmail": "alex@example.com",
+          "checkedBag": true,
+          "priorityBoarding": false,
+          "confirmDetails": false
+        },
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "review stage is visible and unchanged",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The review screen is visible.",
+        "data": {
+          "stage": "review",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "visible_stage_count": 1,
+        "visible_stage_id": "reviewStage",
+        "heading": "5. Review the reservation",
+        "visible_text": "5. Review the reservation\nRoute\nDCA \u2192 BOS\nDate\n2026-10-28\nFlight\nAA101\nSeat\n1A\nPassenger\nAlex Student\nEmail\nalex@example.com\nChecked bag\nYes\nPriority boarding\nNo\nMock total\n$164\nI confirm that the reservation details above are correct\n\nConfirm reservation",
+        "loading_indicator_visible": false,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#review",
+        "form_values": {
+          "fromAirport": "DCA",
+          "toAirport": "BOS",
+          "departureDate": "2026-10-28",
+          "passengers": "1",
+          "passengerName": "Alex Student",
+          "passengerEmail": "alex@example.com",
+          "checkedBag": true,
+          "priorityBoarding": false,
+          "confirmDetails": false
+        },
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "review stays review despite confirmation hash",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The review screen is visible.",
+        "data": {
+          "stage": "review",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "visible_stage_count": 1,
+        "visible_stage_id": "reviewStage",
+        "heading": "5. Review the reservation",
+        "visible_text": "5. Review the reservation\nRoute\nDCA \u2192 BOS\nDate\n2026-10-28\nFlight\nAA101\nSeat\n1A\nPassenger\nAlex Student\nEmail\nalex@example.com\nChecked bag\nYes\nPriority boarding\nNo\nMock total\n$164\nI confirm that the reservation details above are correct\n\nConfirm reservation",
+        "loading_indicator_visible": false,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#confirmation",
+        "form_values": {
+          "fromAirport": "DCA",
+          "toAirport": "BOS",
+          "departureDate": "2026-10-28",
+          "passengers": "1",
+          "passengerName": "Alex Student",
+          "passengerEmail": "alex@example.com",
+          "checkedBag": true,
+          "priorityBoarding": false,
+          "confirmDetails": false
+        },
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "confirmation stage is visible and unchanged",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The confirmation screen is visible.",
+        "data": {
+          "stage": "confirmation",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "visible_stage_count": 1,
+        "visible_stage_id": "confirmationStage",
+        "heading": "RESERVATION CONFIRMED",
+        "visible_text": "RESERVATION CONFIRMED\n\nConfirmation code: LAB2026\n\nRoute\nDCA \u2192 BOS\nDate\n2026-10-28\nFlight\nAA101\nSeat\n1A\nPassenger\nAlex Student\nEmail\nalex@example.com\nChecked bag\nYes\nPriority boarding\nNo\nMock total\n$164\n\nThis confirmation exists only on this practice page. Nothing was purchased or transmitted.",
+        "loading_indicator_visible": false,
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#confirmation",
+        "form_values": {
+          "fromAirport": "DCA",
+          "toAirport": "BOS",
+          "departureDate": "2026-10-28",
+          "passengers": "1",
+          "passengerName": "Alex Student",
+          "passengerEmail": "alex@example.com",
+          "checkedBag": true,
+          "priorityBoarding": false,
+          "confirmDetails": true
+        },
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "step": 4,
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "normal search observation",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": true,
+        "message": "The search screen is visible.",
+        "data": {
+          "stage": "search",
+          "loading": false
+        }
+      },
+      "browser_evidence": {
+        "search_visible": true,
+        "heading": "1. Search for a flight",
+        "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+        "page_unchanged": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "closed page rejected",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": false,
+        "message": "No open browser page was supplied.",
+        "data": {}
+      },
+      "browser_evidence": {
+        "page_is_closed": true
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "stopped driver returns a failure observation",
+      "call": "run(page, {}, {})",
+      "returned": {
+        "ok": false,
+        "message": "Could not inspect the browser page: Event loop is closed! Is Playwright already stopped?",
+        "data": {}
+      },
+      "browser_evidence": {
+        "driver_stopped": true,
+        "page_is_closed": false,
+        "independent_title_read_error": "Event loop is closed! Is Playwright already stopped?"
+      },
+      "result": "PASS"
+    }
+  ]
+}
