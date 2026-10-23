@@ -1,0 +1,53 @@
+Test run on macOS, Python 3.13.5, Playwright 1.63.0, run by Wan Lin Yang.
+
+=== Test 1 (failure case): read_review on the search screen ===
+validate({}) -> True argument is valid
+Call: read_review.run(page, {}, {})
+Returned observation: {'ok': False, 'message': 'review not ready: the Review screen is not visible', 'data': {'url': 'https://onyourmark.github.io/browser-agent-form/travel/#search'}}
+Browser evidence: #reviewStage visible = False
+PASS: the tool correctly reported that the review is not ready
+
+=== Test 2 (success case): read the Review screen ===
+In the Playwright browser window, do these steps by hand:
+  1. Choose From BOS and To JFK, set date 2026-10-27, then click Search flights
+  2. Choose flight AA101
+  3. Choose seat 1A, then click Continue
+  4. Full name: Alex Student
+  5. Email: alex@example.com
+  6. Select Checked bag; leave Priority boarding unselected
+  7. Click Continue to review
+When the Review screen is showing, press Enter here... 
+validate({}) -> True argument is valid
+Call: read_review.run(page, {}, {})
+Returned observation: {'ok': True, 'message': 'read 9 review fields from the browser', 'data': {'review': {'Route': 'BOS → JFK', 'Date': '2026-10-27', 'Flight': 'AA101', 'Seat': '1A', 'Passenger': 'Alex Student', 'Email': 'alex@example.com', 'Checked bag': 'Yes', 'Priority boarding': 'No', 'Mock total': '$164'}, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#review'}}
+Browser evidence (#reviewCard text):
+Route
+BOS → JFK
+Date
+2026-10-27
+Flight
+AA101
+Seat
+1A
+Passenger
+Alex Student
+Email
+alex@example.com
+Checked bag
+Yes
+Priority boarding
+No
+Mock total
+$164
+PASS: Route = BOS → JFK
+PASS: Date = 2026-10-27
+PASS: Flight = AA101
+PASS: Passenger = Alex Student
+PASS: Email = alex@example.com
+PASS: Seat = 1A
+PASS: Checked bag = Yes
+PASS: Priority boarding = No
+
+=== Summary ===
+Test 1 failure case (review not ready): PASS
+Test 2 success case (read Review screen): PASS
