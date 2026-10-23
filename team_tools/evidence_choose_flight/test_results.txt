@@ -1,0 +1,28 @@
+CALL choose_flight.run: {"flight_id": "ZZ999"}
+RETURN: {"ok": false, "message": "ZZ999 is not one of the offered flights (AA101, AA205, AA317, AA422). Nothing was clicked.", "data": {"requested_flight_id": "ZZ999", "offered_flights": ["AA101", "AA205", "AA317", "AA422"], "stage_before": "results", "clicked": false, "stage_after": "", "selected_flight_id": "", "selected_flight_summary": "", "seat_stage_checks": {}, "url": "https://onyourmark.github.io/browser-agent-form/travel/#results"}}
+BROWSER: results_visible=True, seat_visible=False
+PASS: unavailable_flight
+VALIDATE {'flight_id': 'aa101'}: False, flight_id must look like AA101 (two capital letters, then three digits).
+CALL choose_flight.run: {"flight_id": "aa101"}
+RETURN: {"ok": false, "message": "Refused: flight_id must look like AA101 (two capital letters, then three digits). Nothing was clicked.", "data": {"requested_flight_id": "", "offered_flights": [], "stage_before": "", "clicked": false, "stage_after": "", "selected_flight_id": "", "selected_flight_summary": "", "seat_stage_checks": {}, "url": ""}}
+BROWSER: results_visible=True, seat_visible=False
+PASS: invalid_5
+VALIDATE {'flight_id': ' AA101 '}: False, flight_id must look like AA101 (two capital letters, then three digits).
+CALL choose_flight.run: {"flight_id": " AA101 "}
+RETURN: {"ok": false, "message": "Refused: flight_id must look like AA101 (two capital letters, then three digits). Nothing was clicked.", "data": {"requested_flight_id": "", "offered_flights": [], "stage_before": "", "clicked": false, "stage_after": "", "selected_flight_id": "", "selected_flight_summary": "", "seat_stage_checks": {}, "url": ""}}
+BROWSER: results_visible=True, seat_visible=False
+PASS: invalid_7
+VALIDATE {'flight_id': ''}: False, flight_id is empty.
+CALL choose_flight.run: {"flight_id": ""}
+RETURN: {"ok": false, "message": "Refused: flight_id is empty. Nothing was clicked.", "data": {"requested_flight_id": "", "offered_flights": [], "stage_before": "", "clicked": false, "stage_after": "", "selected_flight_id": "", "selected_flight_summary": "", "seat_stage_checks": {}, "url": ""}}
+BROWSER: results_visible=True, seat_visible=False
+PASS: invalid_0
+CALL choose_flight.run: {"flight_id": "AA101"}
+RETURN: {"ok": false, "message": "The Choose button for AA101 is disabled. Nothing was clicked.", "data": {"requested_flight_id": "AA101", "offered_flights": ["AA101", "AA205", "AA317", "AA422"], "stage_before": "results", "clicked": false, "stage_after": "", "selected_flight_id": "", "selected_flight_summary": "", "seat_stage_checks": {}, "url": "https://onyourmark.github.io/browser-agent-form/travel/#results"}}
+BROWSER: results_visible=True, seat_visible=False
+PASS: disabled_button
+CALL choose_flight.run: {"flight_id": "AA101"}
+RETURN: {"ok": true, "message": "Chose AA101. Seat selection is open: Selected AA101: DCA to BOS, departing 8:10 AM.", "data": {"requested_flight_id": "AA101", "offered_flights": ["AA101", "AA205", "AA317", "AA422"], "stage_before": "results", "clicked": true, "stage_after": "seat", "selected_flight_id": "AA101", "selected_flight_summary": "Selected AA101: DCA to BOS, departing 8:10 AM.", "seat_stage_checks": {"seat_stage_visible": true, "results_stage_hidden": true, "summary_names_flight": true, "seat_map_loaded": true}, "url": "https://onyourmark.github.io/browser-agent-form/travel/#seat"}}
+BROWSER: seat_visible=True, results_visible=False, seats=30, summary='Selected AA101: DCA to BOS, departing 8:10 AM.'
+PASS: selecting AA101 opens its seat-selection screen
+ALL TESTS PASSED
