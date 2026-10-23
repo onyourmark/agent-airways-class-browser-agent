@@ -1,0 +1,17 @@
+{
+  "model_proposal": {"action": "confirm_demo_reservation", "argument": {}},
+  "trusted_context_from_python": {
+    "human_approved": true,
+    "goal": {
+      "from": "DCA",
+      "to": "BOS",
+      "date": "2026-10-26",
+      "flight_id": "AA101",
+      "seat": "1A",
+      "passenger_name": "Test Traveler",
+      "email": "traveler@example.com",
+      "checked_bag": false,
+      "priority_boarding": false
+    }
+  }
+}

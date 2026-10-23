@@ -1,0 +1,63 @@
+{
+  "test": "success",
+  "model_proposal": {
+    "action": "confirm_demo_reservation",
+    "argument": {}
+  },
+  "trusted_context": {
+    "human_approved": true,
+    "goal": {
+      "from": "DCA",
+      "to": "BOS",
+      "date": "2026-10-26",
+      "flight_id": "AA101",
+      "seat": "1A",
+      "passenger_name": "Test Traveler",
+      "email": "traveler@example.com",
+      "checked_bag": false,
+      "priority_boarding": false
+    }
+  },
+  "validation": {
+    "valid": true,
+    "note": "The argument is an empty dictionary."
+  },
+  "tool_returned": {
+    "ok": true,
+    "message": "Browser shows 'RESERVATION CONFIRMED' with confirmation code LAB2026.",
+    "data": {
+      "clicked": true,
+      "url": "https://onyourmark.github.io/browser-agent-form/travel/#confirmation",
+      "review": {
+        "Route": "DCA → BOS",
+        "Date": "2026-10-26",
+        "Flight": "AA101",
+        "Seat": "1A",
+        "Passenger": "Test Traveler",
+        "Email": "traveler@example.com",
+        "Checked bag": "No",
+        "Priority boarding": "No",
+        "Mock total": "$129"
+      },
+      "heading": "RESERVATION CONFIRMED",
+      "confirmation_code": "LAB2026",
+      "confirmation_details": {
+        "Route": "DCA → BOS",
+        "Date": "2026-10-26",
+        "Flight": "AA101",
+        "Seat": "1A",
+        "Passenger": "Test Traveler",
+        "Email": "traveler@example.com",
+        "Checked bag": "No",
+        "Priority boarding": "No",
+        "Mock total": "$129"
+      }
+    }
+  },
+  "browser_checked_afterward": {
+    "url": "https://onyourmark.github.io/browser-agent-form/travel/#confirmation",
+    "review_screen_visible": false,
+    "confirmation_screen_visible": true,
+    "page_checkbox_checked": true
+  }
+}
