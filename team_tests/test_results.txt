@@ -1,0 +1,42 @@
+python3 team_tests/test_list_seats.py
+
+--- INVALID ARGUMENT TEST: a wrong argument is refused ---
+validate({'seat': '1A'}) -> False | The argument must be an empty dictionary.
+Result: {'ok': False, 'message': 'Invalid argument: The argument must be an empty dictionary.', 'data': {}}
+Page URL before: https://onyourmark.github.io/browser-agent-form/travel/#search | after: https://onyourmark.github.io/browser-agent-form/travel/#search
+PASS: the bad argument was refused and the page did not change.
+
+--- FAILURE TEST: before reaching the seat map ---
+Result: {'ok': False, 'message': 'The seat selection stage is not visible.', 'data': {}}
+PASS: tool reported not-ready instead of inventing seats.
+
+Now use the browser window to search for a flight,
+choose one, and continue until the seat map is visible.
+Press Enter when you can see the seat map...
+
+--- SUCCESS TEST: seat map visible ---
+Result: {'ok': True, 'message': 'Read 30 seats.', 'data': {'seats': [{'seat': '1A', 'status': 'available'}, {'seat': '1B', 'status': 'unavailable'}, {'seat': '1C', 'status': 'available'}, {'seat': '1D', 'status': 'available'}, {'seat': '1E', 'status': 'available'}, {'seat': '1F', 'status': 'available'}, {'seat': '2A', 'status': 'available'}, {'seat': '2B', 'status': 'available'}, {'seat': '2C', 'status': 'unavailable'}, {'seat': '2D', 'status': 'available'}, {'seat': '2E', 'status': 'available'}, {'seat': '2F', 'status': 'available'}, {'seat': '3A', 'status': 'unavailable'}, {'seat': '3B', 'status': 'available'}, {'seat': '3C', 'status': 'available'}, {'seat': '3D', 'status': 'available'}, {'seat': '3E', 'status': 'available'}, {'seat': '3F', 'status': 'available'}, {'seat': '4A', 'status': 'available'}, {'seat': '4B', 'status': 'available'}, {'seat': '4C', 'status': 'available'}, {'seat': '4D', 'status': 'available'}, {'seat': '4E', 'status': 'available'}, {'seat': '4F', 'status': 'unavailable'}, {'seat': '5A', 'status': 'available'}, {'seat': '5B', 'status': 'available'}, {'seat': '5C', 'status': 'available'}, {'seat': '5D', 'status': 'unavailable'}, {'seat': '5E', 'status': 'available'}, {'seat': '5F', 'status': 'available'}]}}
+PASS: 1A is choosable and 1B is unavailable, as on the demo site.
+
+--- INDEPENDENT BROWSER CHECK ---
+Seat buttons on the page: 30 | Seats reported by tool: 30
+PASS: the tool reported every seat on the page.
+1A - page disabled: False | tool says: available
+PASS: 1A matches the page.
+1B - page disabled: True | tool says: unavailable
+PASS: 1B matches the page.
+Press Enter to close the browser...
+
+
+python3 tests.py
+
+PASS: valid JSON
+PASS: bad JSON
+PASS: unknown tool rejected
+PASS: missing argument rejected
+PASS: valid tool accepted
+PASS: bad tool argument rejected
+PASS: goal accepts exact browser evidence
+PASS: premature done rejected
+PASS: misleading title rejected
+All 9 offline checks passed.
