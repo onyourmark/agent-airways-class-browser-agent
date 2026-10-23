@@ -1,0 +1,98 @@
+Opened https://onyourmark.github.io/browser-agent-form/travel/#search
+
+======================================================================
+TEST: Valid departure date on search screen
+======================================================================
+Tool call: {'field': 'departure_date', 'value': '2026-12-15'}
+validate() returned: (True, 'Argument is valid.')
+run() returned: {'ok': True, 'message': 'Field filled and exact value verified.', 'data': {'field': 'departure_date', 'requested_value': '2026-12-15', 'action_attempted': True, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#search', 'before_value': '2026-10-27', 'actual_value': '2026-12-15'}}
+Independent browser read of #departureDate: '2026-12-15'
+Browser contains exactly '2026-12-15'.
+Screenshot saved: team_tests/evidence/1_departure_date_filled.png
+RESULT: PASS
+
+======================================================================
+TEST: Hidden full_name on search screen is refused
+======================================================================
+Tool call: {'field': 'full_name', 'value': 'Alex Student'}
+validate() returned: (True, 'Argument is valid.')
+run() returned: {'ok': False, 'message': 'Field is hidden. Manually reach the correct screen.', 'data': {'field': 'full_name', 'requested_value': 'Alex Student', 'action_attempted': False, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#search'}}
+Before: {'url': 'https://onyourmark.github.io/browser-agent-form/travel/#search', 'departure_date': '2026-12-15', 'full_name': '', 'email': ''}
+After:  {'url': 'https://onyourmark.github.io/browser-agent-form/travel/#search', 'departure_date': '2026-12-15', 'full_name': '', 'email': ''}
+Tool refused the hidden field and the page is unchanged.
+RESULT: PASS
+
+======================================================================
+TEST: Bad arguments rejected before any typing
+======================================================================
+Tool call: {'field': 'full_name', 'value': ''}
+validate() returned: (False, 'Value must be nonempty text.')
+run() NOT called because validation failed.
+Tool call: {'field': 'full_name', 'value': '   '}
+validate() returned: (False, 'Value must be nonempty text.')
+run() NOT called because validation failed.
+Tool call: {'field': 'departure_date', 'value': '2026/12/15'}
+validate() returned: (False, 'Date must be a valid date in YYYY-MM-DD format.')
+run() NOT called because validation failed.
+Tool call: {'field': 'departure_date', 'value': '2026-02-30'}
+validate() returned: (False, 'Date must be a valid date in YYYY-MM-DD format.')
+run() NOT called because validation failed.
+Tool call: {'field': 'departure_date', 'value': '12-15-2026'}
+validate() returned: (False, 'Date must be a valid date in YYYY-MM-DD format.')
+run() NOT called because validation failed.
+Tool call: {'field': 'email'}
+validate() returned: (False, 'Provide exactly field and value.')
+run() NOT called because validation failed.
+Tool call: full_name=Alex Student
+validate() returned: (False, 'Argument must be a dictionary.')
+run() NOT called because validation failed.
+All 7 bad arguments were rejected; page unchanged.
+RESULT: PASS
+Setup: tester navigated to the passenger screen by hand.
+Passenger screen is showing. URL: https://onyourmark.github.io/browser-agent-form/travel/#passenger
+
+======================================================================
+TEST: Full name = Alex Student
+======================================================================
+Tool call: {'field': 'full_name', 'value': 'Alex Student'}
+validate() returned: (True, 'Argument is valid.')
+run() returned: {'ok': True, 'message': 'Field filled and exact value verified.', 'data': {'field': 'full_name', 'requested_value': 'Alex Student', 'action_attempted': True, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#passenger', 'before_value': '', 'actual_value': 'Alex Student'}}
+Independent browser read of #passengerName: 'Alex Student'
+Browser contains exactly 'Alex Student'.
+Screenshot saved: team_tests/evidence/2_full_name_alex_student.png
+RESULT: PASS
+
+======================================================================
+TEST: Email = alex@example.com
+======================================================================
+Tool call: {'field': 'email', 'value': 'alex@example.com'}
+validate() returned: (True, 'Argument is valid.')
+run() returned: {'ok': True, 'message': 'Field filled and exact value verified.', 'data': {'field': 'email', 'requested_value': 'alex@example.com', 'action_attempted': True, 'url': 'https://onyourmark.github.io/browser-agent-form/travel/#passenger', 'before_value': '', 'actual_value': 'alex@example.com'}}
+Independent browser read of #passengerEmail: 'alex@example.com'
+Browser contains exactly 'alex@example.com'.
+Screenshot saved: team_tests/evidence/3_passenger_name_and_email_filled.png
+RESULT: PASS
+
+======================================================================
+TEST: credit_card refused, page unchanged
+======================================================================
+Before: {'url': 'https://onyourmark.github.io/browser-agent-form/travel/#passenger', 'departure_date': '2026-12-15', 'full_name': 'Alex Student', 'email': 'alex@example.com'}
+Tool call: {'field': 'credit_card', 'value': '4111111111111111'}
+validate() returned: (False, 'Allowed fields: departure_date, full_name, email.')
+run() NOT called because validation failed.
+Direct run() call (skipping validate) returned: {'ok': False, 'message': 'Allowed fields: departure_date, full_name, email.', 'data': {}}
+After:  {'url': 'https://onyourmark.github.io/browser-agent-form/travel/#passenger', 'departure_date': '2026-12-15', 'full_name': 'Alex Student', 'email': 'alex@example.com'}
+credit_card was refused and the page is unchanged.
+Screenshot saved: team_tests/evidence/4_after_credit_card_refused.png
+RESULT: PASS
+
+======================================================================
+SUMMARY
+======================================================================
+PASS: Valid departure date on search screen
+PASS: Hidden full_name on search screen is refused
+PASS: Bad arguments rejected before any typing
+PASS: Full name = Alex Student
+PASS: Email = alex@example.com
+PASS: credit_card refused, page unchanged
+6 passed, 0 failed.
