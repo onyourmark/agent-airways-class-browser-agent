@@ -1,0 +1,540 @@
+{
+  "team": "Team 11",
+  "tool": "select_seat",
+  "site_url": "https://onyourmark.github.io/browser-agent-form/travel/",
+  "started_at_utc": "2026-10-20T21:12:35.058357+00:00",
+  "python_version": "3.10.7",
+  "playwright_version": "1.64.0",
+  "headless": true,
+  "records": [
+    {
+      "name": "before seat stage",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [],
+        "seat_message": "",
+        "continue_enabled": false,
+        "seat_stage_visible": false,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "The seat-selection stage is not ready or is ambiguous.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [],
+        "seat_message": "",
+        "continue_enabled": false,
+        "seat_stage_visible": false,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "available seat 1A",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [],
+        "seat_message": "",
+        "continue_enabled": false,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": true,
+        "message": "The browser confirms seat 1A is selected and Continue is enabled.",
+        "data": {
+          "seat": "1A",
+          "selected_seat": "1A",
+          "seat_message": "Selected seat 1A.",
+          "continue_enabled": true
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": true,
+      "passed": true
+    },
+    {
+      "name": "unavailable seat 1B",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1B"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "Seat 1B is disabled or unavailable.",
+        "data": {
+          "seat": "1B"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "missing seat 99Z",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "99Z"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "No visible button matches seat 99Z.",
+        "data": {
+          "seat": "99Z"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "reselect available seat 2A",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "2A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "1A"
+        ],
+        "seat_message": "Selected seat 1A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": true,
+        "message": "The browser confirms seat 2A is selected and Continue is enabled.",
+        "data": {
+          "seat": "2A",
+          "selected_seat": "2A",
+          "seat_message": "Selected seat 2A.",
+          "continue_enabled": true
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": true,
+      "passed": true
+    },
+    {
+      "name": "same seat repeated",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "2A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": true,
+        "message": "The browser confirms seat 2A is selected and Continue is enabled.",
+        "data": {
+          "seat": "2A",
+          "selected_seat": "2A",
+          "seat_message": "Selected seat 2A.",
+          "continue_enabled": true
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": true,
+      "passed": true
+    },
+    {
+      "name": "non-dictionary argument refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": null
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "Argument must be a dictionary containing only seat.",
+        "data": {}
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "unexpected key refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A",
+          "extra": true
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "Argument must contain exactly one key: seat.",
+        "data": {}
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "duplicate seat refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "More than one visible button matches seat 1A.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "hidden seat refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "No visible button matches seat 1A.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "disabled seat refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "Seat 1A is disabled or unavailable.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "click without selection refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "The browser did not confirm the requested seat and enabled Continue.",
+        "data": {
+          "seat": "1A",
+          "selected_seat": "2A",
+          "seat_message": "Selected seat 2A.",
+          "continue_enabled": true
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "unapproved path refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "Only the Agent Airways practice page is allowed.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": true,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    },
+    {
+      "name": "missing Continue refused",
+      "proposal": {
+        "action": "select_seat",
+        "argument": {
+          "seat": "1A"
+        }
+      },
+      "before": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": null,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "tool_return": {
+        "ok": false,
+        "message": "The seat message or Continue control is missing or ambiguous.",
+        "data": {
+          "seat": "1A"
+        }
+      },
+      "independent_check": {
+        "selected_seats": [
+          "2A"
+        ],
+        "seat_message": "Selected seat 2A.",
+        "continue_enabled": null,
+        "seat_stage_visible": true,
+        "passenger_stage_visible": false
+      },
+      "expected_ok": false,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "browser_version": "156.0.8078.4",
+  "invalid_arguments_rejected": [
+    null,
+    "1A",
+    {},
+    {
+      "seat": 1
+    },
+    {
+      "seat": ""
+    },
+    {
+      "seat": "1a"
+    },
+    {
+      "seat": " 1A "
+    },
+    {
+      "seat": "1A",
+      "extra": true
+    }
+  ],
+  "finished_at_utc": "2026-10-20T21:12:37.872429+00:00"
+}
