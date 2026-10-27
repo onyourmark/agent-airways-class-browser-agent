@@ -1,0 +1,23 @@
+{
+  "tool": "list_interactive_elements",
+  "case": "success",
+  "request": "List the visible form controls on the Agent Airways search screen.",
+  "stop_reason": "model_error",
+  "used_team_tool": false,
+  "last_team_tool_ok": false,
+  "trace": [
+    {
+      "step": 1,
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)"
+    }
+  ],
+  "final_page": {
+    "ok": true,
+    "message": "Browser observation",
+    "data": {
+      "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+      "stage": "search",
+      "visible_text": "1. Search for a flight\nFrom\nChoose an airport\nWashington Reagan (DCA)\nBoston (BOS)\nNew York JFK (JFK)\nChicago O'Hare (ORD)\nAtlanta (ATL)\nTo\nChoose an airport\nWashington Reagan (DCA)\nBoston (BOS)\nNew York JFK (JFK)\nChicago O'Hare (ORD)\nAtlanta (ATL)\nDeparture date\nPassengers\n1 passenger\n2 passengers\n3 passengers\n\nSearch flights"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "tool": "list_interactive_elements",
+  "case": "success",
+  "request": "List the visible form controls on the Agent Airways search screen.",
+  "stop_reason": "success",
+  "used_team_tool": true,
+  "last_team_tool_ok": true,
+  "trace": [
+    {
+      "step": 1,
+      "model_reply": "{\"action\":\"list_interactive_elements\",\"argument\":{}}",
+      "action": "list_interactive_elements",
+      "argument": {},
+      "observation": {
+        "ok": true,
+        "message": "Found 6 visible controls.",
+        "data": {
+          "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+          "stage": "searchStage",
+          "count": 6,
+          "elements": [
+            {
+              "id": "fromAirport",
+              "kind": "select",
+              "label": "From",
+              "value": "",
+              "enabled": true,
+              "selected_text": "Choose an airport"
+            },
+            {
+              "id": "toAirport",
+              "kind": "select",
+              "label": "To",
+              "value": "",
+              "enabled": true,
+              "selected_text": "Choose an airport"
+            },
+            {
+              "id": "passengers",
+              "kind": "select",
+              "label": "Passengers",
+              "value": "1",
+              "enabled": true,
+              "selected_text": "1 passenger"
+            },
+            {
+              "id": "departureDate",
+              "kind": "date",
+              "label": "Departure date",
+              "value": "2026-11-03",
+              "enabled": true
+            },
+            {
+              "id": "resetTrip",
+              "kind": "button",
+              "label": "Reset trip",
+              "value": null,
+              "enabled": true
+            },
+            {
+              "id": "searchFlights",
+              "kind": "button",
+              "label": "Search flights",
+              "value": null,
+              "enabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 2,
+      "model_reply": "{\"action\":\"done\",\"argument\":{\"status\":\"success\",\"reason\":\"List of visible form controls on the Agent Airways search screen has been provided.\"}}",
+      "action": "done",
+      "argument": {
+        "status": "success",
+        "reason": "List of visible form controls on the Agent Airways search screen has been provided."
+      },
+      "final_reason": "List of visible form controls on the Agent Airways search screen has been provided."
+    }
+  ],
+  "final_page": {
+    "ok": true,
+    "message": "Browser observation",
+    "data": {
+      "url": "https://onyourmark.github.io/browser-agent-form/travel/#search",
+      "stage": "search",
+      "visible_text": "1. Search for a flight\nFrom\nChoose an airport\nWashington Reagan (DCA)\nBoston (BOS)\nNew York JFK (JFK)\nChicago O'Hare (ORD)\nAtlanta (ATL)\nTo\nChoose an airport\nWashington Reagan (DCA)\nBoston (BOS)\nNew York JFK (JFK)\nChicago O'Hare (ORD)\nAtlanta (ATL)\nDeparture date\nPassengers\n1 passenger\n2 passengers\n3 passengers\n\nSearch flights"
+    }
+  }
+}
