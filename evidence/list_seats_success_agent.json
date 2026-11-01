@@ -1,0 +1,163 @@
+{
+  "tool": "list_seats",
+  "case": "success",
+  "request": "List the seats available for the selected flight.",
+  "stop_reason": "success",
+  "used_team_tool": true,
+  "last_team_tool_ok": true,
+  "trace": [
+    {
+      "step": 1,
+      "model_reply": "{\"action\":\"list_seats\",\"argument\":{}}",
+      "action": "list_seats",
+      "argument": {},
+      "observation": {
+        "ok": true,
+        "message": "Read 30 seats.",
+        "data": {
+          "seats": [
+            {
+              "seat": "1A",
+              "status": "available"
+            },
+            {
+              "seat": "1B",
+              "status": "unavailable"
+            },
+            {
+              "seat": "1C",
+              "status": "available"
+            },
+            {
+              "seat": "1D",
+              "status": "available"
+            },
+            {
+              "seat": "1E",
+              "status": "available"
+            },
+            {
+              "seat": "1F",
+              "status": "available"
+            },
+            {
+              "seat": "2A",
+              "status": "available"
+            },
+            {
+              "seat": "2B",
+              "status": "available"
+            },
+            {
+              "seat": "2C",
+              "status": "unavailable"
+            },
+            {
+              "seat": "2D",
+              "status": "available"
+            },
+            {
+              "seat": "2E",
+              "status": "available"
+            },
+            {
+              "seat": "2F",
+              "status": "available"
+            },
+            {
+              "seat": "3A",
+              "status": "unavailable"
+            },
+            {
+              "seat": "3B",
+              "status": "available"
+            },
+            {
+              "seat": "3C",
+              "status": "available"
+            },
+            {
+              "seat": "3D",
+              "status": "available"
+            },
+            {
+              "seat": "3E",
+              "status": "available"
+            },
+            {
+              "seat": "3F",
+              "status": "available"
+            },
+            {
+              "seat": "4A",
+              "status": "available"
+            },
+            {
+              "seat": "4B",
+              "status": "available"
+            },
+            {
+              "seat": "4C",
+              "status": "available"
+            },
+            {
+              "seat": "4D",
+              "status": "available"
+            },
+            {
+              "seat": "4E",
+              "status": "available"
+            },
+            {
+              "seat": "4F",
+              "status": "unavailable"
+            },
+            {
+              "seat": "5A",
+              "status": "available"
+            },
+            {
+              "seat": "5B",
+              "status": "available"
+            },
+            {
+              "seat": "5C",
+              "status": "available"
+            },
+            {
+              "seat": "5D",
+              "status": "unavailable"
+            },
+            {
+              "seat": "5E",
+              "status": "available"
+            },
+            {
+              "seat": "5F",
+              "status": "available"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 2,
+      "model_reply": "{\"action\":\"done\",\"argument\":{\"status\":\"success\",\"reason\":\"Listed available seats for the selected flight.\"}}",
+      "action": "done",
+      "argument": {
+        "status": "success",
+        "reason": "Listed available seats for the selected flight."
+      },
+      "final_reason": "Listed available seats for the selected flight."
+    }
+  ],
+  "final_page": {
+    "ok": true,
+    "message": "Browser observation",
+    "data": {
+      "url": "https://onyourmark.github.io/browser-agent-form/travel/#seat",
+      "stage": "seat",
+      "visible_text": "3. Choose a seat\n\nSelected AA101: DCA to BOS, departing 8:10 AM.\n\nSelect one available seat. Gray seats are unavailable.\n\n1A\n1B\n1C\n1D\n1E\n1F\n2A\n2B\n2C\n2D\n2E\n2F\n3A\n3B\n3C\n3D\n3E\n3F\n4A\n4B\n4C\n4D\n4E\n4F\n5A\n5B\n5C\n5D\n5E\n5F\n\nContinue"
+    }
+  }
+}
